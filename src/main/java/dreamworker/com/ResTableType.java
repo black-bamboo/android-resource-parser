@@ -18,7 +18,9 @@ public class ResTableType {
 
     private ResTableConfig tableConfig;
 
-    public ResTableType(Scanner scanner) throws IOException {
+    private ResTableEntry[] tableEntries;
+
+    public ResTableType(Scanner scanner, ResStringPool keyStringPool) throws IOException {
         chunkHeader = new ResChunkHeader(scanner);
         id = scanner.nextByte();
         res0 = scanner.nextByte();
@@ -26,6 +28,11 @@ public class ResTableType {
         entryCount = scanner.nextInt();
         entriesStart = scanner.nextInt();
         tableConfig = new ResTableConfig(scanner);
+
+        tableEntries = new ResTableEntry[entryCount];
+        for (int i = 0; i < entryCount; i++) {
+            tableEntries[i] = new ResTableEntry(scanner, keyStringPool);
+        }
     }
 
     public ResChunkHeader getChunkHeader() {

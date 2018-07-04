@@ -18,7 +18,11 @@ public class ResTableTypeSpec {
 
     private ResTableType[] tableTypes;
 
-    public ResTableTypeSpec(Scanner scanner) throws IOException {
+    private ResStringPool typeStringPool;
+
+    private ResStringPool keyStringPool;
+
+    public ResTableTypeSpec(Scanner scanner, ResStringPool typeStringPool, ResStringPool keyStringPool) throws IOException {
         chunkHeader = new ResChunkHeader(scanner);
         id = scanner.nextByte();
         res0 = scanner.nextByte();
@@ -32,7 +36,7 @@ public class ResTableTypeSpec {
 
         tableTypes = new ResTableType[entryCount];
         for (int i = 0; i < entryCount; i++) {
-            tableTypes[i] = new ResTableType(scanner);
+            tableTypes[i] = new ResTableType(scanner, keyStringPool);
         }
     }
 

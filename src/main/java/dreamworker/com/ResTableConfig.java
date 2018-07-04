@@ -1,5 +1,7 @@
 package dreamworker.com;
 
+import java.io.IOException;
+
 public class ResTableConfig {
 
     /**
@@ -121,12 +123,12 @@ public class ResTableConfig {
     /**
      * char localeScript[4]
      */
-    private char[] localeScript;
+    private byte[] localeScript;
 
     /**
      * char localeVariant[8]
      */
-    private char[] localeVariant;
+    private byte[] localeVariant;
 
     /**
      * union {
@@ -143,6 +145,16 @@ public class ResTableConfig {
     private int screenConfigPad2;
     private int screenConfig2;
 
-    public ResTableConfig(Scanner scanner) {
+    public ResTableConfig(Scanner scanner) throws IOException {
+        imsi = scanner.nextInt();
+        locale = scanner.nextInt();
+        screenType = scanner.nextInt();
+        input = scanner.nextInt();
+        screenSize = scanner.nextInt();
+        version = scanner.nextInt();
+        screenConfig = scanner.nextInt();
+        screenSizeDp = scanner.nextInt();
+        localeScript = scanner.nextBytes(4);
+        localeVariant = scanner.nextBytes(8);
     }
 }

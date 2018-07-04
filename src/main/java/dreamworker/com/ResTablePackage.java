@@ -43,7 +43,7 @@ public class ResTablePackage {
         int typeStringCount = typeStringPool.getStringPoolHeader().getStringCount();
         tableTypeSpecs = new ResTableTypeSpec[typeStringCount];
         for (int i = 0; i < typeStringCount; i++) {
-            tableTypeSpecs[i] = new ResTableTypeSpec(scanner);
+            tableTypeSpecs[i] = new ResTableTypeSpec(scanner, typeStringPool, keyStringPool);
         }
     }
 
