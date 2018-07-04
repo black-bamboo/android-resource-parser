@@ -24,6 +24,8 @@ public class ResTablePackage {
 
     private int typeIdOffset;
 
+    private ResTableTypeSpec[] tableTypeSpecs;
+
     public ResTablePackage(Scanner scanner) throws IOException {
         chunkHeader = new ResChunkHeader(scanner);
         id = scanner.nextInt();
@@ -37,6 +39,12 @@ public class ResTablePackage {
 
         typeStringPool = new ResStringPool(scanner);
         keyStringPool = new ResStringPool(scanner);
+
+        int typeStringCount = typeStringPool.getStringPoolHeader().getStringCount();
+        tableTypeSpecs = new ResTableTypeSpec[typeStringCount];
+        for (int i = 0; i < typeStringCount; i++) {
+            tableTypeSpecs[i] = new ResTableTypeSpec(scanner);
+        }
     }
 
     public ResChunkHeader getChunkHeader() {
@@ -85,6 +93,14 @@ public class ResTablePackage {
 
     public void setTypeStrings(int typeStrings) {
         this.typeStrings = typeStrings;
+    }
+
+    public int getLastPublicType() {
+        return lastPublicType;
+    }
+
+    public void setLastPublicType(int lastPublicType) {
+        this.lastPublicType = lastPublicType;
     }
 
     public int getKeyStrings() {

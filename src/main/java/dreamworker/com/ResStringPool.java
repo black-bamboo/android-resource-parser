@@ -14,18 +14,18 @@ public class ResStringPool {
     private long stringPoolOffset;
 
     public ResStringPool(Scanner scanner) throws IOException {
+        debug("string pool:");
         stringPoolOffset = scanner.getPosition();
         stringPoolHeader = new ResStringPoolHeader(scanner);
         indices = new int[stringPoolHeader.getStringCount()];
         for (int i = 0; i < indices.length; i++) {
             indices[i] = scanner.nextInt();
         }
-        System.out.println("string pool indices end at " + scanner.getPosition());
 
         strings = new String[indices.length];
         for (int i = 0; i < indices.length - 1; i++) {
             strings[i] = readString(index2Offset(indices[i]), indices[i + 1] - indices[i], scanner);
-            debug("find string " + strings[i]);
+            debug("parse string " + strings[i]);
         }
 
         int lastIndices = indices[indices.length - 1];
@@ -37,7 +37,10 @@ public class ResStringPool {
             baos.write(b);
         }
         byte[] lastBytes = baos.toByteArray();
-        System.out.println("last string " + new String(lastBytes));
+        String lastString = new String(lastBytes);
+        debug("parse string " + lastString);
+        strings[indices.length - 1] = lastString;
+
         scanner.seek(stringPoolOffset + stringPoolHeader.getChunkHeader().getSize());
     }
 
