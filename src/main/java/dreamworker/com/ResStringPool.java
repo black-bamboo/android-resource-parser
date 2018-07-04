@@ -24,7 +24,7 @@ public class ResStringPool {
 
         strings = new String[indices.length];
         for (int i = 0; i < indices.length - 1; i++) {
-            strings[i] = readString(index2Offset(indices[i]), indices[i + 1] - indices[i], scanner);
+            strings[i] = readString(index2Offset(indices[i]), indices[i + 1] - indices[i] - 1, scanner);
             debug("parse string " + strings[i]);
         }
 
@@ -69,5 +69,17 @@ public class ResStringPool {
 
     public void setStringPoolHeader(ResStringPoolHeader stringPoolHeader) {
         this.stringPoolHeader = stringPoolHeader;
+    }
+
+    public int[] getIndices() {
+        return indices;
+    }
+
+    public void setIndices(int[] indices) {
+        this.indices = indices;
+    }
+
+    public String getString(int index) {
+        return strings[index];
     }
 }

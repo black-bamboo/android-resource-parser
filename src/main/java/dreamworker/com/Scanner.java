@@ -16,6 +16,7 @@ public class Scanner {
     }
 
     public byte nextByte() throws IOException {
+        position++;
         return this.randomAccessFile.readByte();
     }
 

@@ -32,6 +32,8 @@ public class ResTableEntry {
         flags = scanner.nextShort();
         keyStringPoolRef = scanner.nextInt();
 
+        System.out.println("entry key " + keyStringPool.getString(keyStringPoolRef));
+
         if (!isComplex()) {
             value = new ResValue(scanner);
         }

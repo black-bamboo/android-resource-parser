@@ -146,6 +146,7 @@ public class ResTableConfig {
     private int screenConfig2;
 
     public ResTableConfig(Scanner scanner) throws IOException {
+        size = scanner.nextInt();
         imsi = scanner.nextInt();
         locale = scanner.nextInt();
         screenType = scanner.nextInt();
@@ -156,5 +157,6 @@ public class ResTableConfig {
         screenSizeDp = scanner.nextInt();
         localeScript = scanner.nextBytes(4);
         localeVariant = scanner.nextBytes(8);
+        screenConfig2 = scanner.nextInt();
     }
 }
