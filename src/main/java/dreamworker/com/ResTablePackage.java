@@ -1,6 +1,10 @@
 package dreamworker.com;
 
 import java.io.IOException;
+import java.util.HashMap;
+
+import static dreamworker.com.ResChunkHeader.RES_TABLE_TYPE_SPEC_TYPE;
+import static dreamworker.com.ResChunkHeader.RES_TABLE_TYPE_TYPE;
 
 public class ResTablePackage {
 
@@ -24,10 +28,13 @@ public class ResTablePackage {
 
     private int typeIdOffset;
 
-    private ResTableTypeSpec[] tableTypeSpecs;
+    private HashMap<Integer, ResTableTypeSpec> tableTypeSpecs = new HashMap<>();
 
     public ResTablePackage(Scanner scanner) throws IOException {
+        Log.debug("parsing package");
+        long tablePackageStart = scanner.getPosition();
         chunkHeader = new ResChunkHeader(scanner);
+        long tablePackageEnd = tablePackageStart + chunkHeader.getSize();
         id = scanner.nextInt();
         byte[] bytes = scanner.nextBytes(256);
         name = new String(bytes);
@@ -40,10 +47,22 @@ public class ResTablePackage {
         typeStringPool = new ResStringPool(scanner);
         keyStringPool = new ResStringPool(scanner);
 
-        int typeStringCount = typeStringPool.getStringPoolHeader().getStringCount();
-        tableTypeSpecs = new ResTableTypeSpec[typeStringCount];
-        for (int i = 0; i < typeStringCount; i++) {
-            tableTypeSpecs[i] = new ResTableTypeSpec(scanner, typeStringPool, keyStringPool);
+        while (scanner.getPosition() < tablePackageEnd) {
+            scanner.mark();
+            ResChunkHeader chunkHeader = new ResChunkHeader(scanner);
+            scanner.unmark();
+            switch (chunkHeader.getType()) {
+                case RES_TABLE_TYPE_SPEC_TYPE: {
+                    ResTableTypeSpec tableTypeSpec = new ResTableTypeSpec(scanner, typeStringPool, keyStringPool);
+                    tableTypeSpecs.put(tableTypeSpec.getId(), tableTypeSpec);
+                }
+                    break;
+                case RES_TABLE_TYPE_TYPE: {
+                    ResTableType tableType = new ResTableType(scanner, keyStringPool);
+                    ResTableTypeSpec tableTypeSpec = tableTypeSpecs.get(tableType.getId());
+                }
+                    break;
+            }
         }
     }
 

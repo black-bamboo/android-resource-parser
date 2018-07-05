@@ -1,6 +1,7 @@
 package dreamworker.com;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class ResTableTypeSpec {
 
@@ -16,7 +17,7 @@ public class ResTableTypeSpec {
 
     private int[] configs;
 
-    private ResTableType[] tableTypes;
+    private HashMap<Integer, ResTableType> tableTypes;
 
     private ResStringPool typeStringPool;
 
@@ -34,9 +35,14 @@ public class ResTableTypeSpec {
             configs[i] = scanner.nextInt();
         }
 
-        tableTypes = new ResTableType[entryCount];
-        for (int i = 0; i < entryCount; i++) {
-            tableTypes[i] = new ResTableType(scanner, keyStringPool);
+        Log.debug("parsing type spec id " + id + " entryCount " + entryCount);
+
+        long typeSpecSize = chunkHeader.getSize() - chunkHeader.getHeaderSize();
+        tableTypes = new HashMap<>();
+        while (typeSpecSize > 0) {
+            ResTableType tableType = new ResTableType(scanner, keyStringPool);
+            tableTypes.put(tableType.getId(), tableType);
+            typeSpecSize -= tableType.getChunkHeader().getSize();
         }
     }
 
@@ -88,11 +94,15 @@ public class ResTableTypeSpec {
         this.configs = configs;
     }
 
-    public ResTableType[] getTableTypes() {
+    public HashMap<Integer, ResTableType> getTableTypes() {
         return tableTypes;
     }
 
-    public void setTableTypes(ResTableType[] tableTypes) {
+    public ResTableType getTableType(int id) {
+        return tableTypes.get(id);
+    }
+
+    public void setTableTypes(HashMap<Integer, ResTableType> tableTypes) {
         this.tableTypes = tableTypes;
     }
 }

@@ -149,7 +149,10 @@ public class ResTableConfig {
         size = scanner.nextInt();
         imsi = scanner.nextInt();
         locale = scanner.nextInt();
+
         screenType = scanner.nextInt();
+        density = (screenType >> 16) & 0xffff;
+
         input = scanner.nextInt();
         screenSize = scanner.nextInt();
         version = scanner.nextInt();
@@ -158,5 +161,285 @@ public class ResTableConfig {
         localeScript = scanner.nextBytes(4);
         localeVariant = scanner.nextBytes(8);
         screenConfig2 = scanner.nextInt();
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public int getMcc() {
+        return mcc;
+    }
+
+    public void setMcc(int mcc) {
+        this.mcc = mcc;
+    }
+
+    public int getMnc() {
+        return mnc;
+    }
+
+    public void setMnc(int mnc) {
+        this.mnc = mnc;
+    }
+
+    public int getImsi() {
+        return imsi;
+    }
+
+    public void setImsi(int imsi) {
+        this.imsi = imsi;
+    }
+
+    public char[] getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(char[] language) {
+        this.language = language;
+    }
+
+    public char[] getCountry() {
+        return country;
+    }
+
+    public void setCountry(char[] country) {
+        this.country = country;
+    }
+
+    public int getLocale() {
+        return locale;
+    }
+
+    public void setLocale(int locale) {
+        this.locale = locale;
+    }
+
+    public int getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(int orientation) {
+        this.orientation = orientation;
+    }
+
+    public int getTouchscreen() {
+        return touchscreen;
+    }
+
+    public void setTouchscreen(int touchscreen) {
+        this.touchscreen = touchscreen;
+    }
+
+    public int getDensity() {
+        return density;
+    }
+
+    public void setDensity(int density) {
+        this.density = density;
+    }
+
+    public int getScreenType() {
+        return screenType;
+    }
+
+    public void setScreenType(int screenType) {
+        this.screenType = screenType;
+    }
+
+    public int getKeyboard() {
+        return keyboard;
+    }
+
+    public void setKeyboard(int keyboard) {
+        this.keyboard = keyboard;
+    }
+
+    public int getNavigation() {
+        return navigation;
+    }
+
+    public void setNavigation(int navigation) {
+        this.navigation = navigation;
+    }
+
+    public int getInputFlags() {
+        return inputFlags;
+    }
+
+    public void setInputFlags(int inputFlags) {
+        this.inputFlags = inputFlags;
+    }
+
+    public int getInputPad0() {
+        return inputPad0;
+    }
+
+    public void setInputPad0(int inputPad0) {
+        this.inputPad0 = inputPad0;
+    }
+
+    public int getInput() {
+        return input;
+    }
+
+    public void setInput(int input) {
+        this.input = input;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public void setScreenWidth(int screenWidth) {
+        this.screenWidth = screenWidth;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
+    }
+
+    public void setScreenHeight(int screenHeight) {
+        this.screenHeight = screenHeight;
+    }
+
+    public int getScreenSize() {
+        return screenSize;
+    }
+
+    public void setScreenSize(int screenSize) {
+        this.screenSize = screenSize;
+    }
+
+    public int getSdkVersion() {
+        return sdkVersion;
+    }
+
+    public void setSdkVersion(int sdkVersion) {
+        this.sdkVersion = sdkVersion;
+    }
+
+    public int getMinorVersion() {
+        return minorVersion;
+    }
+
+    public void setMinorVersion(int minorVersion) {
+        this.minorVersion = minorVersion;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public int getScreenLayout() {
+        return screenLayout;
+    }
+
+    public void setScreenLayout(int screenLayout) {
+        this.screenLayout = screenLayout;
+    }
+
+    public int getUiMode() {
+        return uiMode;
+    }
+
+    public void setUiMode(int uiMode) {
+        this.uiMode = uiMode;
+    }
+
+    public int getSmallestScreenWidthDp() {
+        return smallestScreenWidthDp;
+    }
+
+    public void setSmallestScreenWidthDp(int smallestScreenWidthDp) {
+        this.smallestScreenWidthDp = smallestScreenWidthDp;
+    }
+
+    public int getScreenConfig() {
+        return screenConfig;
+    }
+
+    public void setScreenConfig(int screenConfig) {
+        this.screenConfig = screenConfig;
+    }
+
+    public int getScreenWidthDp() {
+        return screenWidthDp;
+    }
+
+    public void setScreenWidthDp(int screenWidthDp) {
+        this.screenWidthDp = screenWidthDp;
+    }
+
+    public int getScreenHeightDp() {
+        return screenHeightDp;
+    }
+
+    public void setScreenHeightDp(int screenHeightDp) {
+        this.screenHeightDp = screenHeightDp;
+    }
+
+    public int getScreenSizeDp() {
+        return screenSizeDp;
+    }
+
+    public void setScreenSizeDp(int screenSizeDp) {
+        this.screenSizeDp = screenSizeDp;
+    }
+
+    public byte[] getLocaleScript() {
+        return localeScript;
+    }
+
+    public void setLocaleScript(byte[] localeScript) {
+        this.localeScript = localeScript;
+    }
+
+    public byte[] getLocaleVariant() {
+        return localeVariant;
+    }
+
+    public void setLocaleVariant(byte[] localeVariant) {
+        this.localeVariant = localeVariant;
+    }
+
+    public int getScreenLayout2() {
+        return screenLayout2;
+    }
+
+    public void setScreenLayout2(int screenLayout2) {
+        this.screenLayout2 = screenLayout2;
+    }
+
+    public int getScreenConfigPad1() {
+        return screenConfigPad1;
+    }
+
+    public void setScreenConfigPad1(int screenConfigPad1) {
+        this.screenConfigPad1 = screenConfigPad1;
+    }
+
+    public int getScreenConfigPad2() {
+        return screenConfigPad2;
+    }
+
+    public void setScreenConfigPad2(int screenConfigPad2) {
+        this.screenConfigPad2 = screenConfigPad2;
+    }
+
+    public int getScreenConfig2() {
+        return screenConfig2;
+    }
+
+    public void setScreenConfig2(int screenConfig2) {
+        this.screenConfig2 = screenConfig2;
     }
 }

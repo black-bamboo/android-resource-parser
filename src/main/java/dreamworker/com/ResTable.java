@@ -12,6 +12,7 @@ public class ResTable {
 
     public ResTable(Scanner scanner) throws IOException {
         tableHeader = new ResTableHeader(scanner);
+        Log.debug("parsing table package count " + tableHeader.getPackageCount());
         stringPool = new ResStringPool(scanner);
         packages = new ResTablePackage[tableHeader.getPackageCount()];
         for (int i = 0; i < tableHeader.getPackageCount(); i++) {

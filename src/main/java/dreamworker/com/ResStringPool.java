@@ -14,7 +14,7 @@ public class ResStringPool {
     private long stringPoolOffset;
 
     public ResStringPool(Scanner scanner) throws IOException {
-        debug("string pool:");
+        Log.debug("parsing string pool:");
         stringPoolOffset = scanner.getPosition();
         stringPoolHeader = new ResStringPoolHeader(scanner);
         indices = new int[stringPoolHeader.getStringCount()];
@@ -25,7 +25,7 @@ public class ResStringPool {
         strings = new String[indices.length];
         for (int i = 0; i < indices.length - 1; i++) {
             strings[i] = readString(index2Offset(indices[i]), indices[i + 1] - indices[i] - 1, scanner);
-            debug("parse string " + strings[i]);
+            Log.debug("parse string " + strings[i]);
         }
 
         int lastIndices = indices[indices.length - 1];
@@ -38,7 +38,7 @@ public class ResStringPool {
         }
         byte[] lastBytes = baos.toByteArray();
         String lastString = new String(lastBytes);
-        debug("parse string " + lastString);
+        Log.debug("parse string " + lastString);
         strings[indices.length - 1] = lastString;
 
         scanner.seek(stringPoolOffset + stringPoolHeader.getChunkHeader().getSize());
@@ -57,10 +57,6 @@ public class ResStringPool {
         scanner.unmark();
 
         return new String(bytes, 2, bytes.length - 2);
-    }
-
-    private void debug(String msg) {
-        System.out.println(msg);
     }
 
     public ResStringPoolHeader getStringPoolHeader() {

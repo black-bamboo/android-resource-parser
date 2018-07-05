@@ -4,6 +4,24 @@ import java.io.IOException;
 
 public class ResValue {
 
+    static final int TYPE_NULL = 0x00;
+
+    static final int TYPE_REFERENCE = 0x01;
+
+    static final int TYPE_ATTRIBUTE = 0x02;
+
+    static final int TYPE_STRING = 0x03;
+
+    static final int TYPE_FLOAT = 0x04;
+
+    static final int TYPE_DIMENSION = 0x05;
+
+    static final int TYPE_FRACTION = 0x06;
+
+    static final int DYNAMIC_REFERENCE = 0x07;
+
+    static final int DYNAMIC_ATTRIBUTE = 0x08;
+
     private int size;
 
     private int res0;

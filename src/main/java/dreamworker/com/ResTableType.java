@@ -30,6 +30,8 @@ public class ResTableType {
         entriesStart = scanner.nextInt();
         tableConfig = new ResTableConfig(scanner);
 
+        Log.debug("parsing type id " + id + " entryCount " + entryCount + " density " + tableConfig.getDensity());
+
         scanner.seek(tableTypeStart + entriesStart);
         tableEntries = new ResTableEntry[entryCount];
         for (int i = 0; i < entryCount; i++) {
