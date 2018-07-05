@@ -29,18 +29,20 @@ public class ResStringPool {
             Log.debug("parse string " + strings[i]);
         }
 
-        int lastIndices = indices[indices.length - 1];
-        scanner.seek(index2Offset(lastIndices));
-        scanner.nextShort();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        byte b;
-        while ((b = scanner.nextByte()) != 0) {
-            baos.write(b);
+        if (indices.length > 1) {
+            int lastIndices = indices[indices.length - 1];
+            scanner.seek(index2Offset(lastIndices));
+            scanner.nextShort();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte b;
+            while ((b = scanner.nextByte()) != 0) {
+                baos.write(b);
+            }
+            byte[] lastBytes = baos.toByteArray();
+            String lastString = new String(lastBytes);
+            Log.debug("parse string " + lastString);
+            strings[indices.length - 1] = lastString;
         }
-        byte[] lastBytes = baos.toByteArray();
-        String lastString = new String(lastBytes);
-        Log.debug("parse string " + lastString);
-        strings[indices.length - 1] = lastString;
 
         scanner.seek(stringPoolOffset + stringPoolHeader.getChunkHeader().getSize());
     }

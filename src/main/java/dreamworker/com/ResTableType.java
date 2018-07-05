@@ -36,7 +36,13 @@ public class ResTableType {
         scanner.seek(tableTypeStart + entriesStart);
         tableEntries = new ResTableEntry[entryCount];
         for (int i = 0; i < entryCount; i++) {
-            tableEntries[i] = new ResTableEntry(context);
+            scanner.mark();
+            ResTableEntry temp = new ResTableEntry(context);
+            if (temp.isComplex()) {
+                scanner.unmark();
+                temp = new ResTableMapEntry(context);
+            }
+            tableEntries[i] = temp;
         }
     }
 

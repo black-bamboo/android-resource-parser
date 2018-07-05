@@ -33,7 +33,7 @@ public class ResTableEntry {
         flags = scanner.nextShort();
         keyStringPoolRef = scanner.nextInt();
 
-        System.out.println("parsing entry key " + context.getKeyStringPool().getString(keyStringPoolRef) + "\n------");
+        System.out.println("parsing entry key " + context.getKeyStringPool().getString(keyStringPoolRef));
 
         if (!isComplex()) {
             value = new ResValue(context);

@@ -2,24 +2,24 @@ package dreamworker.com;
 
 import java.io.IOException;
 
-public class ResTableMapEntry {
-
-    private ResTableEntry tableEntry;
+public class ResTableMapEntry extends ResTableEntry {
 
     private int parent;
 
     private int count;
 
+    private ResTableMap[] tableMaps;
+
     public ResTableMapEntry(Context context) throws IOException {
-        tableEntry = new ResTableEntry(context);
-    }
+        super(context);
+        Scanner scanner = context.getScanner();
+        parent = scanner.nextInt();
 
-    public ResTableEntry getTableEntry() {
-        return tableEntry;
-    }
-
-    public void setTableEntry(ResTableEntry tableEntry) {
-        this.tableEntry = tableEntry;
+        count = scanner.nextInt();
+        tableMaps = new ResTableMap[count];
+        for (int i = 0; i < count; i++) {
+            tableMaps[i] = new ResTableMap(context);
+        }
     }
 
     public int getParent() {
