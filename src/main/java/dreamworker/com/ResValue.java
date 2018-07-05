@@ -18,9 +18,31 @@ public class ResValue {
 
     static final int TYPE_FRACTION = 0x06;
 
-    static final int DYNAMIC_REFERENCE = 0x07;
+    static final int TYPE_DYNAMIC_REFERENCE = 0x07;
 
-    static final int DYNAMIC_ATTRIBUTE = 0x08;
+    static final int TYPE_DYNAMIC_ATTRIBUTE = 0x08;
+
+    static final int TYPE_FIRST_INT = 0x10;
+
+    static final int TYPE_INT_DEC = 0x10;
+
+    static final int TYPE_INT_HEX = 0x11;
+
+    static final int TYPE_INT_BOOLEAN = 0x12;
+
+    static final int TYPE_FIRST_COLOR_INT = 0x1c;
+
+    static final int TYPE_INT_COLOR_ARGB8 = 0x1c;
+
+    static final int TYPE_INT_COLOR_RGB8 = 0x1d;
+
+    static final int TYPE_INT_COLOR_ARGB4 = 0x1e;
+
+    static final int TYPE_INT_COLOR_RGB4 = 0x1f;
+
+    static final int TYPE_LAST_COLOR_INT = 0x1f;
+
+    static final int TYPE_LAST_INT = 0x1f;
 
     private int size;
 
@@ -30,11 +52,13 @@ public class ResValue {
 
     private int data;
 
-    public ResValue(Scanner scanner) throws IOException {
+    public ResValue(Context context) throws IOException {
+        Scanner scanner = context.getScanner();
         size = scanner.nextShort();
         res0 = scanner.nextByte();
         dataType = scanner.nextByte();
         data = scanner.nextInt();
+        Log.debug("parsing value type " + dataType + " data " + data + "\n------");
     }
 
     public int getSize() {

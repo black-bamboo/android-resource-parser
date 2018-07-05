@@ -30,10 +30,11 @@ public class ResTablePackage {
 
     private HashMap<Integer, ResTableTypeSpec> tableTypeSpecs = new HashMap<>();
 
-    public ResTablePackage(Scanner scanner) throws IOException {
-        Log.debug("parsing package");
+    public ResTablePackage(Context context) throws IOException {
+        Scanner scanner = context.getScanner();
+        Log.debug("parsing package\n------");
         long tablePackageStart = scanner.getPosition();
-        chunkHeader = new ResChunkHeader(scanner);
+        chunkHeader = new ResChunkHeader(context);
         long tablePackageEnd = tablePackageStart + chunkHeader.getSize();
         id = scanner.nextInt();
         byte[] bytes = scanner.nextBytes(256);
@@ -44,21 +45,23 @@ public class ResTablePackage {
         lastPublicKey = scanner.nextInt();
         typeIdOffset = scanner.nextInt();
 
-        typeStringPool = new ResStringPool(scanner);
-        keyStringPool = new ResStringPool(scanner);
+        typeStringPool = new ResStringPool(context);
+        context.setTypeStringPool(typeStringPool);
+        keyStringPool = new ResStringPool(context);
+        context.setKeyStringPool(keyStringPool);
 
         while (scanner.getPosition() < tablePackageEnd) {
             scanner.mark();
-            ResChunkHeader chunkHeader = new ResChunkHeader(scanner);
+            ResChunkHeader chunkHeader = new ResChunkHeader(context);
             scanner.unmark();
             switch (chunkHeader.getType()) {
                 case RES_TABLE_TYPE_SPEC_TYPE: {
-                    ResTableTypeSpec tableTypeSpec = new ResTableTypeSpec(scanner, typeStringPool, keyStringPool);
+                    ResTableTypeSpec tableTypeSpec = new ResTableTypeSpec(context);
                     tableTypeSpecs.put(tableTypeSpec.getId(), tableTypeSpec);
                 }
                     break;
                 case RES_TABLE_TYPE_TYPE: {
-                    ResTableType tableType = new ResTableType(scanner, keyStringPool);
+                    ResTableType tableType = new ResTableType(context);
                     ResTableTypeSpec tableTypeSpec = tableTypeSpecs.get(tableType.getId());
                 }
                     break;

@@ -8,8 +8,9 @@ public class ResTableHeader {
 
     private int packageCount;
 
-    public ResTableHeader(Scanner scanner) throws IOException {
-        chunkHeader = new ResChunkHeader(scanner);
+    public ResTableHeader(Context context) throws IOException {
+        Scanner scanner = context.getScanner();
+        chunkHeader = new ResChunkHeader(context);
         packageCount = scanner.nextInt();
     }
 

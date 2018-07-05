@@ -13,10 +13,11 @@ public class ResStringPool {
 
     private long stringPoolOffset;
 
-    public ResStringPool(Scanner scanner) throws IOException {
-        Log.debug("parsing string pool:");
+    public ResStringPool(Context context) throws IOException {
+        Scanner scanner = context.getScanner();
+        Log.debug("parsing string pool:\n------");
         stringPoolOffset = scanner.getPosition();
-        stringPoolHeader = new ResStringPoolHeader(scanner);
+        stringPoolHeader = new ResStringPoolHeader(context);
         indices = new int[stringPoolHeader.getStringCount()];
         for (int i = 0; i < indices.length; i++) {
             indices[i] = scanner.nextInt();

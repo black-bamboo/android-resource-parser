@@ -27,15 +27,16 @@ public class ResTableEntry {
 
     private ResValue value;
 
-    public ResTableEntry(Scanner scanner, ResStringPool keyStringPool) throws IOException {
+    public ResTableEntry(Context context) throws IOException {
+        Scanner scanner = context.getScanner();
         size = scanner.nextShort();
         flags = scanner.nextShort();
         keyStringPoolRef = scanner.nextInt();
 
-        System.out.println("entry key " + keyStringPool.getString(keyStringPoolRef));
+        System.out.println("parsing entry key " + context.getKeyStringPool().getString(keyStringPoolRef) + "\n------");
 
         if (!isComplex()) {
-            value = new ResValue(scanner);
+            value = new ResValue(context);
         }
     }
 

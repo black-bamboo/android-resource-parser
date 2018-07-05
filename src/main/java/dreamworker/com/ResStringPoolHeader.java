@@ -20,8 +20,9 @@ public class ResStringPoolHeader {
 
     private int stylesStart;
 
-    public ResStringPoolHeader(Scanner scanner) throws IOException {
-        chunkHeader = new ResChunkHeader(scanner);
+    public ResStringPoolHeader(Context context) throws IOException {
+        Scanner scanner = context.getScanner();
+        chunkHeader = new ResChunkHeader(context);
         stringCount = scanner.nextInt();
         styleCount = scanner.nextInt();
         flags = scanner.nextInt();

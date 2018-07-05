@@ -20,22 +20,23 @@ public class ResTableType {
 
     private ResTableEntry[] tableEntries;
 
-    public ResTableType(Scanner scanner, ResStringPool keyStringPool) throws IOException {
+    public ResTableType(Context context) throws IOException {
+        Scanner scanner = context.getScanner();
         long tableTypeStart = scanner.getPosition();
-        chunkHeader = new ResChunkHeader(scanner);
+        chunkHeader = new ResChunkHeader(context);
         id = scanner.nextByte();
         res0 = scanner.nextByte();
         res1 = scanner.nextShort();
         entryCount = scanner.nextInt();
         entriesStart = scanner.nextInt();
-        tableConfig = new ResTableConfig(scanner);
+        tableConfig = new ResTableConfig(context);
 
-        Log.debug("parsing type id " + id + " entryCount " + entryCount + " density " + tableConfig.getDensity());
+        Log.debug("parsing type id " + id + " entryCount " + entryCount + " density " + tableConfig.getDensity() + "\n------");
 
         scanner.seek(tableTypeStart + entriesStart);
         tableEntries = new ResTableEntry[entryCount];
         for (int i = 0; i < entryCount; i++) {
-            tableEntries[i] = new ResTableEntry(scanner, keyStringPool);
+            tableEntries[i] = new ResTableEntry(context);
         }
     }
 

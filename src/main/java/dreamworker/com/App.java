@@ -8,11 +8,8 @@ public class App {
     public static void main(String[] args) throws IOException {
         RandomAccessFile fis = new RandomAccessFile(args[0], "r");
         Scanner scanner = new Scanner(fis);
-        ResTable resTable = new ResTable(scanner);
+        Context context = new Context(scanner);
+        ResTable resTable = new ResTable(context);
         fis.close();
-    }
-
-    public static void output(String msg) {
-        System.out.println(msg);
     }
 }

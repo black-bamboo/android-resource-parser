@@ -35,7 +35,8 @@ public class ResChunkHeader {
      */
     private int size;
 
-    public ResChunkHeader(Scanner scanner) throws IOException {
+    public ResChunkHeader(Context context) throws IOException {
+        Scanner scanner = context.getScanner();
         type = scanner.nextShort();
         headerSize = scanner.nextShort();
         size = scanner.nextInt();

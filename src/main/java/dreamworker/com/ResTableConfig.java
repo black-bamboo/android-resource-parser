@@ -145,7 +145,8 @@ public class ResTableConfig {
     private int screenConfigPad2;
     private int screenConfig2;
 
-    public ResTableConfig(Scanner scanner) throws IOException {
+    public ResTableConfig(Context context) throws IOException {
+        Scanner scanner = context.getScanner();
         size = scanner.nextInt();
         imsi = scanner.nextInt();
         locale = scanner.nextInt();

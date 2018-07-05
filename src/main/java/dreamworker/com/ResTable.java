@@ -10,13 +10,14 @@ public class ResTable {
 
     private ResTablePackage[] packages;
 
-    public ResTable(Scanner scanner) throws IOException {
-        tableHeader = new ResTableHeader(scanner);
+    public ResTable(Context context) throws IOException {
+        Scanner scanner = context.getScanner();
+        tableHeader = new ResTableHeader(context);
         Log.debug("parsing table package count " + tableHeader.getPackageCount());
-        stringPool = new ResStringPool(scanner);
+        stringPool = new ResStringPool(context);
         packages = new ResTablePackage[tableHeader.getPackageCount()];
         for (int i = 0; i < tableHeader.getPackageCount(); i++) {
-            packages[i] = new ResTablePackage(scanner);
+            packages[i] = new ResTablePackage(context);
         }
     }
 

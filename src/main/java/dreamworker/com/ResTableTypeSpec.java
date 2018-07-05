@@ -23,8 +23,9 @@ public class ResTableTypeSpec {
 
     private ResStringPool keyStringPool;
 
-    public ResTableTypeSpec(Scanner scanner, ResStringPool typeStringPool, ResStringPool keyStringPool) throws IOException {
-        chunkHeader = new ResChunkHeader(scanner);
+    public ResTableTypeSpec(Context context) throws IOException {
+        Scanner scanner = context.getScanner();
+        chunkHeader = new ResChunkHeader(context);
         id = scanner.nextByte();
         res0 = scanner.nextByte();
         res1 = scanner.nextShort();
@@ -35,12 +36,12 @@ public class ResTableTypeSpec {
             configs[i] = scanner.nextInt();
         }
 
-        Log.debug("parsing type spec id " + id + " entryCount " + entryCount);
+        Log.debug("parsing type spec id " + id + " entryCount " + entryCount + "\n------");
 
         long typeSpecSize = chunkHeader.getSize() - chunkHeader.getHeaderSize();
         tableTypes = new HashMap<>();
         while (typeSpecSize > 0) {
-            ResTableType tableType = new ResTableType(scanner, keyStringPool);
+            ResTableType tableType = new ResTableType(context);
             tableTypes.put(tableType.getId(), tableType);
             typeSpecSize -= tableType.getChunkHeader().getSize();
         }
